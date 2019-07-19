@@ -106,11 +106,25 @@ if __name__ == '__main__':
 
             # TODO ensure it only does this when someone is hailing a taxi.
             # That is, an arm is above their head.
-            hail_taxi(image)
 
+            Nose = 1
+            Rightside = 1
+            Leftside = 1
+
+            for k,v in human.body_parts.items():
+                if POSE_COCO_BODY_PARTS[k] == "Nose":
+                    Nose = v.y
+                elif POSE_COCO_BODY_PARTS[k] == "RElbow" or POSE_COCO_BODY_PARTS[k] == "RWrist":
+                    Rightside = v.y
+                elif POSE_COCO_BODY_PARTS[k] == "LElbow" or POSE_COCO_BODY_PARTS[k] == "LWrist":
+                    Leftside = v.y
+
+            if Leftside < Nose or Rightside < Nose:
+                hail_taxi(image)
+        
             # Debugging statement: remove before demonstration.
             # print([(POSE_COCO_BODY_PARTS[k], v.x, v.y) for k,v in human.body_parts.items()])
-
+            
         # drawing lines on an image
         image = TfPoseEstimator.draw_humans(image, humans, imgcopy=False)
 
@@ -123,3 +137,12 @@ if __name__ == '__main__':
             break
 
     cv2.destroyAllWindows()
+
+  "username_me": "ruperthuang1",
+  "username_partner": "JayChen-AQ6666",
+  "commit_me": "https://github.com/ruperthuang1/tf-pose-estimation/commit/<thecommitSHA>",
+  "commit_partner": "https://github.com/JayChen-AQ6666/tf-pose-estimation/commit/<thecommitSHA>",
+  "commit_coauthor": "https://github.com/JayChen-AQ6666/tf-pose-estimation/commit/<thecommitSHA>",
+  "screenshot_me": "/path/to/your/screenshot.jpg",
+  "screenshot_partner": "/path/to/Jay/screenshot.jpg"
+}
